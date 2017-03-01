@@ -1,14 +1,17 @@
 {
   "name": "react-jade",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Compile Jade to React JavaScript",
   "keywords": [],
   "dependencies": {
     "acorn": "^1.1.0",
     "constantinople": "^3.0.1",
     "ent": "^2.2.0",
-    "jade": "1.9.2",
     "js-stringify": "^1.0.1",
+    "pug": "2.0.0-beta11",
+    "pug-lexer": "^3.0.0",
+    "pug-parser": "^2.0.1",
+    "pug-runtime": "^2.0.2",
     "resolve": "^1.1.6",
     "static-module": "^1.1.2",
     "uglify-js": "^2.4.21",
@@ -16,7 +19,7 @@
   },
   "devDependencies": {
     "es6ify": "^1.6.0",
-    "gethub": "^2.0.1",
+    "gethub": "^2.0.2",
     "htmlparser2": "^3.8.2",
     "istanbul": "^0.3.14",
     "marked": "^0.3.3",
@@ -30,7 +33,7 @@
     "react": ">=15.0.0"
   },
   "scripts": {
-    "test": "node test/download-jade-tests.js && node test/index.js && npm run coverage",
+    "test": "node test/download-pug-tests.js && node test/index.js && npm run coverage",
     "coverage": "istanbul cover test"
   },
   "repository": {

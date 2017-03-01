@@ -12,7 +12,7 @@ var React = require('react');
 var ReactDOM = require('react-dom/server')
 
 var outputDir = __dirname + '/output';
-var inputDir = __dirname + '/jade/test/cases';
+var inputDir = __dirname + '/pug/packages/pug/test/cases';
 var bonusDir = __dirname + '/bonus-features';
 
 rimraf(outputDir);
