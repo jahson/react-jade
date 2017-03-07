@@ -20,44 +20,44 @@ fs.mkdirSync(outputDir);
 try {
   fs.statSync(inputDir);
 } catch (ex) {
-  throw new Error('You must first download jade before you can run tests. This is done automatically if you use "npm test" to run tests.');
+  throw new Error('You must first download pug before you can run tests. This is done automatically if you use "npm test" to run tests.');
 }
 
 fs.readdirSync(inputDir).filter(function (name) {
-  return /\.jade$/.test(name) &&
+  return /\.pug/.test(name) &&
     !/doctype/.test(name) &&
     !/filter/.test(name) &&
     !/case/.test(name) &&
-    'xml.jade' !== name &&
-    'scripts.non-js.jade' !== name &&
-    'html.jade' !== name &&
-    'html5.jade' !== name &&
-    'escape-test.jade' !== name &&
-    'attrs.unescaped.jade' !== name &&
-    'regression.784.jade' !== name &&
-    'tags.self-closing.jade' !== name &&
-    'interpolation.escape.jade' !== name &&
-    'each.else.jade' !== name &&
-    'includes.jade' !== name &&
-    'code.iteration.jade' !== name &&
-    'code.escape.jade' !== name &&
-    'blockquote.jade' !== name &&
-    'attrs-data.jade' !== name &&
-    'blocks-in-blocks.jade' !== name &&
-    'blocks-in-if.jade' !== name;
+    'xml.pug' !== name &&
+    'scripts.non-js.pug' !== name &&
+    'html.pug' !== name &&
+    'html5.pug' !== name &&
+    'escape-test.pug' !== name &&
+    'attrs.unescaped.pug' !== name &&
+    'regression.784.pug' !== name &&
+    'tags.self-closing.pug' !== name &&
+    'interpolation.escape.pug' !== name &&
+    'each.else.pug' !== name &&
+    'includes.pug' !== name &&
+    'code.iteration.pug' !== name &&
+    'code.escape.pug' !== name &&
+    'blockquote.pug' !== name &&
+    'attrs-data.pug' !== name &&
+    'blocks-in-blocks.pug' !== name &&
+    'blocks-in-if.pug' !== name;
 }).forEach(function (name) {
-  name = name.replace(/\.jade$/, '');
+  name = name.replace(/\.pug$/, '');
   test(name, function () {
-    var src = fs.readFileSync(inputDir + '/' + name + '.jade', 'utf8');
+    var src = fs.readFileSync(inputDir + '/' + name + '.pug', 'utf8');
     var expected = htmlparser.parseDOM(fs.readFileSync(inputDir + '/' + name + '.html', 'utf8'));
-    fs.writeFileSync(outputDir + '/' + name + '.jade', src);
-    var js = jade.compileFileClient(inputDir + '/' + name + '.jade', {
+    fs.writeFileSync(outputDir + '/' + name + '.pug', src);
+    var js = jade.compileFileClient(inputDir + '/' + name + '.pug', {
       outputFile: outputDir + '/' + name + '.js',
       basedir: inputDir
     });
     fs.writeFileSync(outputDir + '/' + name + '.js', js);
     mockDom.mock();
-    var fn = jade.compileFile(inputDir + '/' + name + '.jade', {
+    var fn = jade.compileFile(inputDir + '/' + name + '.pug', {
       outputFile: outputDir + '/' + name + '.js',
       basedir: inputDir
     });
@@ -124,9 +124,9 @@ function joinStrings(elements) {
   return result;
 }
 
-test('bonus-features/partial-application.jade', function () {
-  var fn = jade.compileFile(__dirname + '/bonus-features/partial-application.jade');
-  fs.writeFileSync(__dirname + '/output/partial-application.js', jade.compileFileClient(__dirname + '/bonus-features/partial-application.jade'));
+test('bonus-features/partial-application.pug', function () {
+  var fn = jade.compileFile(__dirname + '/bonus-features/partial-application.pug');
+  fs.writeFileSync(__dirname + '/output/partial-application.js', jade.compileFileClient(__dirname + '/bonus-features/partial-application.pug'));
   function click() {
     throw new Error('click should never actually get called');
   }
@@ -154,12 +154,12 @@ test('bonus-features/partial-application.jade', function () {
 });
 
 fs.readdirSync(bonusDir).filter(function (name) {
-  return  /\.jade$/.test(name) &&
+  return  /\.pug/.test(name) &&
           /component-this/.test(name)
 }).forEach(function(name) {
-  name = name.replace(/\.jade$/, '');
+  name = name.replace(/\.pug/, '');
   test(name, function () {
-    var fn = jade.compileFile(bonusDir + '/' + name + '.jade');
+    var fn = jade.compileFile(bonusDir + '/' + name + '.pug');
     var c = React.createClass({ render: fn });
     var html = ReactDOM.renderToStaticMarkup(React.createElement(c, { title: 'Jade', list: ['a', 'b', 'c']}));
 
@@ -173,14 +173,14 @@ fs.readdirSync(bonusDir).filter(function (name) {
   });
 });
 
-test('bonus-features/component-composition.jade', function () {
+test('bonus-features/component-composition.pug', function () {
 
   var name = 'component-composition';
 
-  var render1 = jade.compileFile(bonusDir + '/' + 'component-subcomponent' + '.jade');
+  var render1 = jade.compileFile(bonusDir + '/' + 'component-subcomponent' + '.pug');
   var SubComponent= React.createClass({ render: render1 });
 
-  var render2 = jade.compileFile(bonusDir + '/' + name + '.jade').locals({SubComponent: SubComponent});
+  var render2 = jade.compileFile(bonusDir + '/' + name + '.pug').locals({SubComponent: SubComponent});
   var c = React.createClass({
     render: render2
   });
